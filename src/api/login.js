@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require("../models/user");
+const Player = require("../models/player");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -8,19 +8,19 @@ const router = express.Router();
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  const userWithEmail = await User.findOne({ where: { email } }).catch(
+  const playerWithEmail = await Player.findOne({ where: { email } }).catch(
     (err) => {
       console.log("Error: ", err);
     }
   );
 
-  if (!userWithEmail) {
+  if (!playerWithEmail) {
     return res
       .status(400)
       .json({ message: "Email or password does not match!" });
   }
 
-  bcrypt.compare(password, userWithEmail.password, (err, result) => {
+  bcrypt.compare(password, playerWithEmail.password, (err, result) => {
     if (err) {
         return res.status(400).json({
             message: "Authentication has failed"
@@ -30,8 +30,8 @@ router.post("/login", async (req, res) => {
     if (result) {
         const jwtToken = jwt.sign(
             {
-              email: userWithEmail,
-              id: userWithEmail.id
+              email: playerWithEmail,
+              id: playerWithEmail.id
             },
             process.env.JWT_SECRET,
             {
