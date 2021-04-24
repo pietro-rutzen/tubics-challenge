@@ -2,7 +2,7 @@ const passport = require("passport");
 const passportJwt = require("passport-jwt");
 const ExtractJwt = passportJwt.ExtractJwt;
 const StrategyJwt = passportJwt.Strategy;
-const User = require("../models/user");
+const Player = require("../models/player");
 
 passport.use(
   new StrategyJwt(
@@ -12,8 +12,8 @@ passport.use(
     },
     async (jwtPayload, done) => {
       try {
-        const user = await User.findOne({ where: { id: jwtPayload.id } });
-        return done(null, user);
+        const player = await Player.findOne({ where: { id: jwtPayload.id } });
+        return done(null, player);
       } catch (err) {
         return done(err);
       }
