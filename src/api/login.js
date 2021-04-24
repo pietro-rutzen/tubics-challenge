@@ -26,7 +26,6 @@ router.post("/login", async (req, res) => {
             message: "Authentication has failed"
         }).send();
     }
-    console.log(result)
     if (result) {
         const jwtToken = jwt.sign(
             {

@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 require("./auth/passport");
 
-require("./models/user");
+require("./models/player");
 
 const middlewares = require("./middlewares");
 const api = require("./api");
@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
     message: "✨🇧🇷✨",
   });
 });
+
 
 app.use("/api/v1", api);
 

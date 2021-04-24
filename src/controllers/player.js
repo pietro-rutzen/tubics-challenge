@@ -2,7 +2,7 @@ const Player = require("../models/player");
 const bcrypt = require("bcrypt");
 
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
   const { fullName, email, password } = req.body;
 
   const alreadyExistsPlayer = await Player.findOne({ where: { email } }).catch(
@@ -22,6 +22,6 @@ exports.register = (req, res) => {
     console.log("Error: ", err);
     res.status(500).json({ error: "Cannot register player at the moment!" });
   });
-  
+
   if (savedPlayer) res.json({ message: "Thanks for registering!" });
 };
