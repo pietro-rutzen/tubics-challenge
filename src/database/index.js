@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
   }
 );
 
-sequelize.sync();
+sequelize.sync(process.env.NODE_ENV === "development" ? { alter: true } : {} ); 
 
 (async () => {
   try {
